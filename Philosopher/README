@@ -1,11 +1,1 @@
-le forchette è una risorsa limitata alla quale solo un numero limitato di filosofi può accedervi (nel caso delle forks metà);
-limitare l accesso ad una risorsa
-sem_t forks = nb_philo;
 
-terzo argomento = n. threads che hanno accesso ai semafori ? 
-sem_init(&forks, 0 (?), nb_philo o 2 o forks/nb_philo / 2(?));
-
-con sem_wait decrementa il terzo parametro quindi, dato che non tutti i filo devono poter prendere la forchetta
-
-
-considerazione sul modo in cui si sfrutta la difficoltà
