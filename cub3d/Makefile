@@ -2,21 +2,17 @@ NAME = cub3d
 SRC = *.c
 OBJ = $(SRC:.c=.o)
 FLGS = #-Wall -Wextra -Werror
-LIBFT = ./libft/libft.a
 
 $(NAME):
-	make -C libft
 	gcc $(SRC) $(FLGS) -c
-	gcc $(OBJ) -o $(NAME) $(LIBFT)
+	gcc $(OBJ) -o $(NAME)
 
-all: $(NAME)
+all : $(NAME)
 
-clean:
+clean :
 	rm -rf $(OBJ)
-	make clean -C libft
 
-fclean: clean
+fclean : clean
 	rm -rf $(NAME)
-	make fclean -C libft
 
-re: fclean all
+re : fclean all
