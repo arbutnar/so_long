@@ -1,19 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/03 15:23:19 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/05/03 15:23:19 by arbutnar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	error_msg(char *str)
 {
 	printf("%s Error\n", str);
 	exit(1);
-}
-
-int	check_fd(char *name)
-{
-	int fd;
-
-	fd = open(name, O_RDONLY);
-	if (fd == -1)
-		error_msg("File");
-	return (fd);
 }
 
 int	fd_len(char *filename)
@@ -36,22 +38,6 @@ int	fd_len(char *filename)
 	return (len);
 }
 
-int	rgb(char *str)
-{
-	char	**mtx;
-	int		rgb;
-	int		r;
-	int		g;
-	int		b;
-
-	mtx = ft_split(str, ',');
-	r = ft_atoi(mtx[0]);
-	g = ft_atoi(mtx[1]);
-	b = ft_atoi(mtx[2]);
-	rgb = 65536 * r + 256 * g + b;
-	return (rgb);
-}
-
 void	print_matrix(char **mtx)
 {
 	int	i;
@@ -59,7 +45,7 @@ void	print_matrix(char **mtx)
 	i = 0;
 	while (mtx[i] != NULL)
 	{
-		printf("%s", mtx[i]);
+		printf("%s\n", mtx[i]);
 		i++;
 	}
 }

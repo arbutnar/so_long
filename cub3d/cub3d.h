@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/03 15:23:29 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/05/03 15:23:29 by arbutnar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -16,19 +28,20 @@ typedef struct s_data
 	char	*SO;
 	char	*WE;
 	char	*EA;
-	int		F;			//int: fare trim della stringa. fare lo split per gli spazi. fare la conversione ad interi. sommare tutti i numeri.
+	int		F;
 	int		C;
 	char	**map;
 } t_data;
 
-// init.c
+// data.c
 void	data_init(t_data *data);
+char	*fill_paths(char *str, char *attribute);
+int		fill_rgb(char *str, char *attribute);
 
 // utils.c
 void	error_msg(char *str);
 int		check_fd(char *name);
 int		fd_len(char *filename);
-int		rgb(char *str);
 void	print_matrix(char **mtx);
 
 #endif
