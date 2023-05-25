@@ -61,6 +61,8 @@ typedef struct s_data
 	t_pc	pc;
 } t_data;
 
+
+
 // parsing.c
 void	data_init(t_data *data);
 char	*fill_paths(char *str, char *path);
@@ -71,11 +73,13 @@ void	read_fd(char *filename, t_data *data);
 void    check_map(t_data *data);
 void	check_surroundings(char **map, int row, int col);
 
-// looop_utils.c
-void	twodimensional_print(t_data *data, int x, int y)
-void	create_twodimension(t_data *data);
-void	player(t_data *data);
-void	find_radius(t_data *data);
+// loop_utils.c
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	twoD_print(t_data *data, int x, int y);
+void	create_twoD(t_data *data);
+void	player_pos(t_data *data);
+void	fan_radius(t_data *data);
+void	find_radius(t_data *data, float angle);
 
 // utils.c
 void	error_msg(char *str);

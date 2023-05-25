@@ -5,14 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 13:10:18 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/05/25 13:12:13 by arbutnar         ###   ########.fr       */
+/*   Created: 2023/05/25 13:31:49 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/05/25 14:37:21 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d"
+#include "cub3d.h"
 
-void	twodimensional_print(t_data *data, int x, int y)
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->ll + x * (img->bpp / 8));
+	*(unsigned int*)dst = color;
+}
+
+void	twoD_print(t_data *data, int x, int y)
 {
 	int	i;
 	int	j;
@@ -32,7 +40,7 @@ void	twodimensional_print(t_data *data, int x, int y)
 	}
 }
 
-void	create_twodimension(t_data *data)
+void	create_twoD(t_data *data)
 {
 	int	y;
 	int	x;
@@ -45,14 +53,14 @@ void	create_twodimension(t_data *data)
 		while (data->map[y][x] != '\0')
 		{
 			if (data->map[y][x] == '1')
-				flatlandia(data, x, y);
+				twoD_print(data, x, y);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	player(t_data *data)
+void	player_pos(t_data *data)
 {
 	int	y;
 	int	x;
@@ -70,7 +78,21 @@ void	player(t_data *data)
 	}
 }
 
-void	find_radius(t_data *data)
+void	fan_radius(t_data * data)
+{
+	float l_angle;
+	float r_angle;
+
+	l_angle = data->pc.pov - 30;
+	r_angle = data->pc.pov + 30;
+	while(l_angle <= r_angle)
+	{
+		find_radius(data, l_angle);
+		l_angle += 0.5;
+	}
+}
+
+void	find_radius(t_data *data, float angle)
 {
 	float	Px;
 	float	Py;
@@ -78,14 +100,18 @@ void	find_radius(t_data *data)
 	float	s;
 	float	m;
 
-	m = 0.1;
-	c = cos(data->pc.pov * RAD);
-	s = sin(data->pc.pov * RAD);
-	while (m < 200)
+	m = 0.01;
+	c = cos(angle * RAD);
+	s = sin(angle * RAD);
+	while (1)
 	{
-		Py = data->pc.y * 64 + s * m;
-		Px = data->pc.x * 64 + c * m;
-		my_mlx_pixel_put(&data->img, Px, Py, 0xfbc801);
-		m += 0.5;
+		Py = data->pc.y + s * m;
+		Px = data->pc.x + c * m;
+		if (data->map[(int)Py][(int)Px] == '1')
+			break ;
+		my_mlx_pixel_put(&data->img, Px * 64, Py * 64, 0xfbc801);
+		m += 0.01;
 	}
+	// exit(0);
+	//printf("%d\n", m);
 }

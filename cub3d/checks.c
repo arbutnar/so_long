@@ -6,7 +6,7 @@
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:39:43 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/05/25 13:08:57 by arbutnar         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:33:34 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	orientation(t_data *data, char c)
 	else if (c == 'W')
 		data->pc.pov = 180;
 }
+
+
 
 void	check_surroundings(char **map, int row, int col)
 {
