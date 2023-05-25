@@ -30,56 +30,32 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	flatlandia(t_data *data, int x, int y)
+int	loop_hook(t_data *data)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	
-	while (i < 64)
-	{
-		j = 0;
-		while (j < 64)
-		{
-			my_mlx_pixel_put(&data->img, j + x * 64, i + y * 64, 0x00FF0000);
-			j++;
-		}
-
-		i++;
-	}
+	data->img.img = mlx_new_image(data->mlx, data->width * 64, data->height * 64);
+	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
+								&data->img.ll, &data->img.endian);
+	create(data);
+	player(data);
+	find_radius(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	mlx_destroy_image(data->mlx, data->img.img);
+	return 0;
 }
 
-void	create(t_data *data)
+int	key_hook(int keycode, t_data *data)
 {
-	int	y;
-	int	x;
-
-	y = 0;
-	
-	while (data->map[y] != NULL)
-	{
-		x = 0;
-		while (data->map[y][x] != '\0')
-		{
-			if (data->map[y][x] == '1')
-				flatlandia(data, x, y);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	player(t_data *data)
-{
-	int	y;
-	int	x;
-
-	y = data.p_coords[0] * 64
-	x = data.p_coords[1] * 64;
-	while ()
-		my_mlx_pixel_put(&data.img, x, y, 0x0000ff);
-	
+	if (keycode == ESC)
+		exit (EXIT_SUCCESS);
+	if (keycode == W)
+		data->pc.y -= 1;
+	if (keycode == A)
+		data->pc.x -= 1;
+	if (keycode == S)
+		data->pc.y += 1;
+	if (keycode == D)
+		data->pc.x += 1;
+	return 0;
 }
 
 int main(int argc, char **argv)
@@ -91,8 +67,6 @@ int main(int argc, char **argv)
 	data_init(&data);
 	read_fd(argv[1], &data);
 	check_map(&data);
-	printf("%f\n", data.p_coords[0]);
-	printf("%f\n", data.p_coords[1]);
 		// printf("%s", data.NO);
 		// printf("%s", data.SO);
 		// printf("%s", data.WE);
@@ -101,13 +75,9 @@ int main(int argc, char **argv)
 		// printf("%d\n", data.C);
 		// print_matrix(data.map);
 	data.mlx = mlx_init();
-	data.win = mlx_new_window(data.mlx, data.width * 64, data.height * 64, "cub3d");
-	data.img.img = mlx_new_image(data.mlx, data.width * 64, data.height * 64);
-	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bpp,
-								&data.img.ll, &data.img.endian);
-	create(&data);
-	player(&data);
-	mlx_put_image_to_window(data.mlx, data.win, data.img.img, 0, 0);
+	data.win = mlx_new_window(data.mlx, data.width * 64, data.height * 64, "cub3d");	
+	mlx_key_hook(data.win, key_hook, &data);
+	mlx_loop_hook(data.mlx, loop_hook, &data);
 	mlx_hook(data.win, 17, 0, destroy, &data);
 	mlx_loop(data.mlx);
 	return 0;

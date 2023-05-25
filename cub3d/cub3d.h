@@ -14,9 +14,18 @@
 # define CUB3D_H
 
 # include "libft/libft.h"
-# include "minilibx/mlx.h"
+# include "mlx/mlx.h"
 
-# define ESC	53
+# define RAD	0.0174533
+
+//keypress
+# define W		119
+# define A		97
+# define S		115
+# define D		100
+# define ESC	65307
+# define LEFT	65361
+# define RIGHT	65363
 
 typedef struct s_img
 {
@@ -26,6 +35,14 @@ typedef struct s_img
 	int		ll;
 	int		endian;
 } t_img;
+
+
+typedef struct s_pc
+{
+	int		pov;
+	float	x;
+	float	y;
+} t_pc;
 
 typedef struct s_data
 {
@@ -41,10 +58,8 @@ typedef struct s_data
 	void	*mlx;
 	void	*win;
 	t_img	img;
-	float*	p_coords;
+	t_pc	pc;
 } t_data;
-
-
 
 // parsing.c
 void	data_init(t_data *data);
@@ -55,6 +70,12 @@ void	read_fd(char *filename, t_data *data);
 // checks.c
 void    check_map(t_data *data);
 void	check_surroundings(char **map, int row, int col);
+
+// looop_utils.c
+void	twodimensional_print(t_data *data, int x, int y)
+void	create_twodimension(t_data *data);
+void	player(t_data *data);
+void	find_radius(t_data *data);
 
 // utils.c
 void	error_msg(char *str);

@@ -6,11 +6,23 @@
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:39:43 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/05/19 18:01:21 by arbutnar         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:08:57 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	orientation(t_data *data, char c)
+{
+	if (c == 'N')
+		data->pc.pov = 270;
+	else if (c == 'S')
+		data->pc.pov = 90;
+	else if (c == 'E')
+		data->pc.pov = 0;
+	else if (c == 'W')
+		data->pc.pov = 180;
+}
 
 void	check_surroundings(char **map, int row, int col)
 {
@@ -37,10 +49,9 @@ void    check_map(t_data *data)
 	int		row;
 	int		col;
 	char	c;
-	int		p;
+	int		player;
 
-	data->p_coords = (float *)malloc(sizeof(float) * 2);
-	p = 0;
+	player = 0;
 	row = 0;
 	while (data->map[row] != NULL)
 	{
@@ -50,9 +61,10 @@ void    check_map(t_data *data)
 			c = data->map[row][col];
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 			{
-				data->p_coords[0] = row + 0.5;
-				data->p_coords[1] = col + 0.5;
-				p++;
+				orientation(data, c);
+				data->pc.y = row + 0.5;
+				data->pc.x = col + 0.5;
+				player++;
 			}
 			if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 				check_surroundings(data->map, row, col);
@@ -62,6 +74,6 @@ void    check_map(t_data *data)
 		}
 		row++;
 	}
-	if (p != 1)
+	if (player != 1)
 		error_msg("Invalid map");
 }
