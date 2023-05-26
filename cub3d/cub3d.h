@@ -59,6 +59,10 @@ typedef struct s_data
 	void	*win;
 	t_img	img;
 	t_pc	pc;
+	int		w;
+	int		a;
+	int		s;
+	int		d;
 } t_data;
 
 
@@ -73,7 +77,7 @@ void	read_fd(char *filename, t_data *data);
 void    check_map(t_data *data);
 void	check_surroundings(char **map, int row, int col);
 
-// loop_utils.c
+// loop_utility.c
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	twoD_print(t_data *data, int x, int y);
 void	create_twoD(t_data *data);
@@ -81,7 +85,12 @@ void	player_pos(t_data *data);
 void	fan_radius(t_data *data);
 void	find_radius(t_data *data, float angle);
 
-// utils.c
+// movement.c
+int		key_on(int keycode, t_data *data);
+int		key_off(int keycode, t_data *data);
+void	On_or_Off(t_data *data);
+
+// utility.c
 void	error_msg(char *str);
 int		fd_len(char *filename);
 void	map_size_init(t_data *data);
