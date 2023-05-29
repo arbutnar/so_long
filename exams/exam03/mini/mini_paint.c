@@ -40,24 +40,43 @@ void clean_all(FILE *file, char **p)
 
 	if (file)
 		fclose(file);
+	if (p == NULL)
+		return ;
 	while (p[i])
 	{
 		free(p[i]);
 		i++;
 	}
-	if (p)
-		free(p);
+	free(p);
 }
 
-void print_drawing(t_zone *zone, char **drawing)
+void	ft_putchar(char c)
 {
-	int i = 0;
+	write(1, &c, 1);
+}
 
-	while (i < zone->height)
+void	ft_putstr(char *str)
+{
+	int i;
+	
+	i = 0;
+	while (str[i] != '\0')
 	{
-		write(1, drawing[i], zone->width);
-		write(1, "\n", 1);
+		ft_putchar(str[i]);
 		i++;
+	}
+}
+
+void	print_drawing(t_zone *zone, char **drawing)
+{
+	int y;
+
+	y = 0;
+	while (y < zone->height)
+	{
+		ft_putstr(drawing[y]);
+		ft_putchar('\n');
+		y++;
 	}
 }
 
@@ -76,7 +95,8 @@ char **create_zone(t_zone *zone, FILE *file)
 	i = 0;
 	while (i < zone->height)
 	{
-		mtx[i] = (char *)malloc(sizeof(char) * zone->width + 1);
+		if (!(mtx[i] = (char *)malloc(sizeof(char) * zone->width + 1)))
+			return (NULL);
 		j = 0;
 		while (j < zone->width)
 		{
@@ -92,9 +112,9 @@ char **create_zone(t_zone *zone, FILE *file)
 
 int	in_circle(float y, float x, t_shape *shape)
 {
-	int distance;
+	float	distance;
 
-	distance = sqrtf(powf(y - shape->y, 2.0) + powf(x - shape->x, 2.0));
+	distance = sqrtf(powf(x - shape->x, 2.) + powf(y - shape->y, 2.));
 	if (distance <= shape->radius)
 	{
 		if ((shape->radius - distance) < 1.00000000)

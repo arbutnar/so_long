@@ -17,15 +17,26 @@
 # include "mlx/mlx.h"
 
 # define RAD	0.0174533
+# define NOME_CHE_INDICA_POI_LO_CERCO	64
 
 //keypress
-# define W		119
-# define A		97
-# define S		115
-# define D		100
-# define ESC	65307
-# define LEFT	65361
-# define RIGHT	65363
+// # define W		119
+// # define A		97
+// # define S		115
+// # define D		100
+// # define ESC	65307
+// # define LEFT	65361
+// # define RIGHT	65363
+# define W		13
+# define A		0
+# define S		1
+# define D		2
+# define LEFT	123
+# define RIGHT	124
+# define ESC	53
+
+# define SPEED	0.05
+# define SENSIBILITY 1
 
 typedef struct s_img
 {
@@ -63,6 +74,8 @@ typedef struct s_data
 	int		a;
 	int		s;
 	int		d;
+	int		lf;
+	int		rg;
 } t_data;
 
 

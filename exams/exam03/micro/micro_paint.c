@@ -40,12 +40,13 @@ void	clean_all(FILE *file, char **p)
 
 	if (file)
 		fclose(file);
+	if (p == NULL)
+		return ;
 	while (p[i]) {
 		free(p[i]);
 		i++;
 	}
-	if(p)
-		free(p);
+	free(p);
 }
 
 void	ft_putchar(char c)
@@ -86,7 +87,7 @@ char **draw_zone(t_zone *zone, FILE *file)
 
 	if ((fscanf(file, "%d %d %c\n", &zone->width, &zone->height, &zone->background)) != 3)
 		return (NULL);
-	if (zone->width < 0 || zone->width >= 300 || zone->height < 0 || zone->height >= 300)
+	if (zone->width <= 0 || zone->width > 300 || zone->height <= 0 || zone->height > 300)
 		return (NULL);
 	mtx = (char **)malloc(sizeof(char *) * (zone->height + 1));
 	if (!mtx)
@@ -112,8 +113,8 @@ char **draw_zone(t_zone *zone, FILE *file)
 
 int in_rectangle(float y, float x, t_shape *shape)
 {
-	if (x < shape->x || (shape->x + shape->width) < x
-		|| y < shape->y || (shape->y + shape->height) < y)
+	if (x < shape->x || x > (shape->x + shape->width)
+		|| y < shape->y || y > (shape->y + shape->height))
 			return (0);
 	if ((x - shape->x) < 1.00000000 || (shape->x + shape->width) - x < 1.0000000
 		|| (y - shape->y) < 1.000000000 || (shape->y + shape->height) - y < 1.00000000)
@@ -147,9 +148,9 @@ int	draw_shape(t_zone *zone, FILE *file, char **drawing)
 	t_shape shape;
 	int	ret;
 
-	while ((ret = fscanf(file, "%c %f %f %f %f %c\n", &shape.type, &shape.width, &shape.height, &shape.y, &shape.x, &shape.color)) == 6)
+	while ((ret = fscanf(file, "%c %f %f %f %f %c\n", &shape.type, &shape.x, &shape.y, &shape.width, &shape.height, &shape.color)) == 6)
 	{
-		if (shape.width < 0.00000000 || shape.height < 0.00000000
+		if (shape.width <= 0.00000000 || shape.height <= 0.00000000
 			|| (shape.type != 'r' && shape.type != 'R'))
 				return (0);
 		draw_rectangle(zone, drawing, &shape);
@@ -180,7 +181,6 @@ int main(int argc, char **argv)
 		clean_all(file, NULL);
 		return (error_msg("Error: Operation file corrupted\n"));
 	}
-	clean_all(file, NULL);
 	if (!(draw_shape(&zone, file, drawing)))
 	{
 		clean_all(file, drawing);

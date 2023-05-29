@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop_utils.c                                       :+:      :+:    :+:   */
+/*   loop_utility.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:31:49 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/05/25 14:37:21 by arbutnar         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:25:28 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	create_twoD(t_data *data)
 	int	x;
 
 	y = 0;
-	
 	while (data->map[y] != NULL)
 	{
 		x = 0;
@@ -66,10 +65,10 @@ void	player_pos(t_data *data)
 	int	x;
 
 	y = data->pc.y * 64 - 5;
-	while (y != data->pc.y * 64 + 5)
+	while (y < data->pc.y * 64 + 5)
 	{
 		x = data->pc.x * 64 - 5;
-		while (x != data->pc.x * 64 + 5)
+		while (x < data->pc.x * 64 + 5)
 		{
 			my_mlx_pixel_put(&data->img, x, y, 0x0000ff);
 			x++;
@@ -88,7 +87,7 @@ void	fan_radius(t_data * data)
 	while(l_angle <= r_angle)
 	{
 		find_radius(data, l_angle);
-		l_angle += 0.5;
+		l_angle += 0.01;		// in proporzione alla width dello schermo 
 	}
 }
 
@@ -112,6 +111,4 @@ void	find_radius(t_data *data, float angle)
 		my_mlx_pixel_put(&data->img, Px * 64, Py * 64, 0xfbc801);
 		m += 0.01;
 	}
-	// exit(0);
-	//printf("%d\n", m);
 }

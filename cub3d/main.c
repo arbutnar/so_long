@@ -46,8 +46,8 @@ int main(int argc, char **argv)
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, data.width * 64, data.height * 64, "cub3d");
 	mlx_do_key_autorepeaton(data.mlx);
-	mlx_hook(data.win, 4, 0L, key_on, &data);
-	mlx_hook(data.win, 5, 0L, key_off, &data);
+	mlx_hook(data.win, 2, 0L, key_on, &data);
+	mlx_hook(data.win, 3, 0L, key_off, &data);
 	mlx_loop_hook(data.mlx, loop_hook, &data);
 	mlx_hook(data.win, 17, 0, destroy, &data);
 	mlx_loop(data.mlx);
