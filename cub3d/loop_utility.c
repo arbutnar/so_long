@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_utility.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:31:49 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/05/26 17:25:28 by arbutnar         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:35:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,54 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	char	*dst;
 
 	dst = img->addr + (y * img->ll + x * (img->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
-void	twoD_print(t_data *data, int x, int y)
+void	player_pos(t_data *data)
+{
+	int	y;
+	int	x;
+
+	y = data->pc.y * UNIT_SIZE - 5;
+	while (y < data->pc.y * UNIT_SIZE + 5)
+	{
+		x = data->pc.x * UNIT_SIZE - 5;
+		while (x < data->pc.x * UNIT_SIZE + 5)
+		{
+			my_mlx_pixel_put(&data->img, x, y, WHITE);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	print_minimap(t_data *data, int x, int y)
 {
 	int	i;
 	int	j;
+	int	color;
 
+	if (data->map[y][x] == '1')
+		color = RED;
+	else if (data->map[y][x] == 'D')
+		color = GREEN;
+	else if (data->map[y][x] == 'A')
+		color = PURPLE;
 	i = 0;
-	
-	while (i < 64)
+	while (i < UNIT_SIZE)
 	{
 		j = 0;
-		while (j < 64)
+		while (j < UNIT_SIZE)
 		{
-			my_mlx_pixel_put(&data->img, j + x * 64, i + y * 64, 0x00FF0000);
+			my_mlx_pixel_put(&data->img, j + x * UNIT_SIZE, i
+				+ y * UNIT_SIZE, color);
 			j++;
 		}
-
 		i++;
 	}
 }
 
-void	create_twoD(t_data *data)
+void	create_minimap(t_data *data)
 {
 	int	y;
 	int	x;
@@ -51,64 +75,29 @@ void	create_twoD(t_data *data)
 		x = 0;
 		while (data->map[y][x] != '\0')
 		{
-			if (data->map[y][x] == '1')
-				twoD_print(data, x, y);
+			if (data->map[y][x] == '1' || data->map[y][x] == 'D'
+				|| data->map[y][x] == 'A')
+				print_minimap(data, x, y);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	player_pos(t_data *data)
+void	fill_screen(t_data *data)
 {
-	int	y;
 	int	x;
+	int	y;
 
-	y = data->pc.y * 64 - 5;
-	while (y < data->pc.y * 64 + 5)
+	y = 0;
+	while (y < SCR_HEIGHT)
 	{
-		x = data->pc.x * 64 - 5;
-		while (x < data->pc.x * 64 + 5)
+		x = 0;
+		while (x < SCR_WIDTH)
 		{
-			my_mlx_pixel_put(&data->img, x, y, 0x0000ff);
+			my_mlx_pixel_put(&data->img, x, y, BLACK);
 			x++;
 		}
 		y++;
-	}
-}
-
-void	fan_radius(t_data * data)
-{
-	float l_angle;
-	float r_angle;
-
-	l_angle = data->pc.pov - 30;
-	r_angle = data->pc.pov + 30;
-	while(l_angle <= r_angle)
-	{
-		find_radius(data, l_angle);
-		l_angle += 0.01;		// in proporzione alla width dello schermo 
-	}
-}
-
-void	find_radius(t_data *data, float angle)
-{
-	float	Px;
-	float	Py;
-	float	c;
-	float	s;
-	float	m;
-
-	m = 0.01;
-	c = cos(angle * RAD);
-	s = sin(angle * RAD);
-	while (1)
-	{
-		Py = data->pc.y + s * m;
-		Px = data->pc.x + c * m;
-		if (data->map[(int)Py][(int)Px] == '1')
-			break ;
-		my_mlx_pixel_put(&data->img, Px * 64, Py * 64, 0xfbc801);
-		m += 0.01;
 	}
 }

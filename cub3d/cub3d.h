@@ -16,27 +16,32 @@
 # include "libft/libft.h"
 # include "mlx/mlx.h"
 
-# define RAD	0.0174533
-# define NOME_CHE_INDICA_POI_LO_CERCO	64
-
-//keypress
-// # define W		119
-// # define A		97
-// # define S		115
-// # define D		100
-// # define ESC	65307
-// # define LEFT	65361
-// # define RIGHT	65363
-# define W		13
-# define A		0
-# define S		1
-# define D		2
-# define LEFT	123
-# define RIGHT	124
-# define ESC	53
-
-# define SPEED	0.05
-# define SENSIBILITY 1
+// sizes
+# define UNIT_SIZE 16
+# define SCR_WIDTH 2560
+# define SCR_HEIGHT 1440
+# define GAME_WIDTH 1280.00
+# define GAME_HEIGHT 720.00
+# define HAND_SIZE 384.0
+// keypress
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define ESC 65307
+# define LEFT 65361
+# define RIGHT 65363
+# define SPACEBAR 32
+// ulils for calculations
+# define RAD 0.0174533
+# define SPEED 0.2
+# define SENSIBILITY 6
+// colors
+# define BLACK 0x000000
+# define RED 0xff0000
+# define GREEN 0x5d9560
+# define WHITE 0xfdfbfb
+# define PURPLE 0x9b329f
 
 typedef struct s_img
 {
@@ -45,30 +50,32 @@ typedef struct s_img
 	int		bpp;
 	int		ll;
 	int		endian;
-} t_img;
-
+	int		w;
+	int		h;
+}	t_img;
 
 typedef struct s_pc
 {
 	int		pov;
 	float	x;
 	float	y;
-} t_pc;
+}	t_pc;
 
 typedef struct s_data
 {
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-	int		F;
-	int		C;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	*door;
+	int		f;
+	int		c;
 	char	**map;
-	int		height;
-	int		width;
 	void	*mlx;
 	void	*win;
 	t_img	img;
+	t_img	tex[5];
+	int		wall_x[(int)GAME_WIDTH];
 	t_pc	pc;
 	int		w;
 	int		a;
@@ -76,38 +83,70 @@ typedef struct s_data
 	int		d;
 	int		lf;
 	int		rg;
-} t_data;
+	float	radius_lenght[(int)GAME_WIDTH];
+	float	wall_height[(int)GAME_WIDTH];
+	float	orien[(int)GAME_WIDTH];
+	t_img	hand;
+	int		frames;
+	float	s_angle;
+}	t_data;
 
-
+// main.c
+int	destroy(t_data *data);
 
 // parsing.c
-void	data_init(t_data *data);
 char	*fill_paths(char *str, char *path);
 void	fill_rgb(char *str, int *rgb);
 void	read_fd(char *filename, t_data *data);
+void	open_textures(t_data *data);
 
 // checks.c
-void    check_map(t_data *data);
+void	check_map(t_data *data);
 void	check_surroundings(char **map, int row, int col);
 
 // loop_utility.c
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void	twoD_print(t_data *data, int x, int y);
-void	create_twoD(t_data *data);
+void	print_minimap(t_data *data, int x, int y);
+void	create_minimap(t_data *data);
 void	player_pos(t_data *data);
-void	fan_radius(t_data *data);
-void	find_radius(t_data *data, float angle);
+void	fill_screen(t_data *data);
 
 // movement.c
 int		key_on(int keycode, t_data *data);
 int		key_off(int keycode, t_data *data);
-void	On_or_Off(t_data *data);
+void	do_movement(t_data *data, float angle);
+void	movements(t_data *data);
+
+// orien.c
+void	assign_orien(t_data *data);
+void	north_star(t_data *data, float angle, float distance, int i);
+void	calculate_radius(t_data *data, float angle, int i);
+void	fan_radius(t_data *data);
+
+// textures.c
+void	texture_x(t_data *data, int i, float Px, float Py);
+void	texture_put(t_data *data, int x, int y, t_img texture);
+void	ray_casting(t_data *data, int x, t_img texture);
 
 // utility.c
+void	data_init(t_data *data);
 void	error_msg(char *str);
 int		fd_len(char *filename);
-void	map_size_init(t_data *data);
 void	print_matrix(char **mtx);
 void	free_data(t_data *data);
+
+// norm_utility.c
+void	p_hand(t_data *data, float tes_y, float tes_x, int y);
+
+// bonus.c
+void	door_north_star(t_data *data, float angle, float distance, int i);
+void	open_door(t_data *data);
+void	open_hand(t_data *data);
+void	print_spiral(t_data *data);
+void	update_hand(t_data *data);
+
+// spiral.c
+void	thick_spiral(t_data *data, float p_x, float p_y, int color);
+void	print_spiral(t_data *data);
 
 #endif

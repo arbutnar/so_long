@@ -18,6 +18,25 @@ void	error_msg(char *str)
 	exit(1);
 }
 
+void	data_init(t_data *data)
+{
+	data->no = NULL;
+	data->so = NULL;
+	data->we = NULL;
+	data->ea = NULL;
+	data->door = NULL;
+	data->f = 0;
+	data->c = 0;
+	data->frames = 0;
+	data->pc.pov = 0;
+	data->w = 0;
+	data->a = 0;
+	data->s = 0;
+	data->d = 0;
+	data->lf = 0;
+	data->rg = 0;
+}
+
 int	fd_len(char *filename)
 {
 	int		len;
@@ -38,31 +57,6 @@ int	fd_len(char *filename)
 	return (len);
 }
 
-void	map_size_init(t_data *data)
-{
-	int	tmp_h;
-	int	tmp_w;
-	int y;
-	int	x;
-
-	tmp_h = 0;
-	while (data->map[tmp_h] != NULL)
-	{
-		tmp_w = 0;
-		while (data->map[y][tmp_w] != '\0')
-		{
-			if (x < tmp_w)
-				x = tmp_w;
-			tmp_w++;
-		}
-		if (y < tmp_h)
-			y = tmp_h;
-		tmp_h++;
-	}
-	data->height = y + 1;
-	data->width = x;
-}
-
 void	print_matrix(char **mtx)
 {
 	int	i;
@@ -77,9 +71,10 @@ void	print_matrix(char **mtx)
 
 void	free_data(t_data *data)
 {
-	free(data->NO);
-	free(data->SO);
-	free(data->WE);
-	free(data->EA);
+	free(data->no);
+	free(data->so);
+	free(data->we);
+	free(data->ea);
+	free(data->door);
 	free(data->map);
 }

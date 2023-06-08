@@ -1,23 +1,22 @@
 NAME = cub3d
 SRC = *.c
-FLG = -Wall -Wextra -Werror
+FLG = -Wall -Wextra -Werror -lXext -lX11
 LIB = libft.a
 MLX = libmlx.dylib
 
 $(NAME):
-		make -C libft && mv libft/libft.a .
-		make -C mlx && mv mlx/libmlx.dylib .
-		gcc $(SRC) -o $(NAME) $(LIB) $(MLX)
-		
+	make -C libft && mv libft/libft.a .
+	make -C mlx && mv mlx/libmlx.dylib .
+		gcc $(SRC) -o $(NAME) $(LIB) $(MLX) 
 
 clean:
 		rm -rf $(NAME)
-		rm -rf $(LIB)
-		rm -rf $(MLX)
+#rm -rf $(LIB)
+#rm -rf $(MLX)
 
 fclean:	clean
-	make fclean -C libft
-	make clean -C mlx
+#make fclean -C libft
+#make clean -C mlx
 
 all:	$(NAME)
 
