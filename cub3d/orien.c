@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   orien.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 17:15:28 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/06/07 11:55:21 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/05 13:51:47 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,19 @@ void	calculate_radius(t_data *data, float angle, int i)
 {
 	float	p_x;
 	float	p_y;
+	float	c;
+	float	s;
 	float	distance;
+	float	radius_lenght;
 
 	distance = 0.01;
+	c = cos(angle * RAD);
+	s = sin(angle * RAD);
 	while (1)
 	{
-		p_y = data->pc.y + sin(angle * RAD) * distance;
-		p_x = data->pc.x + cos(angle * RAD) * distance;
-		if (data->map[(int)p_y][(int)p_x] == '1'
-			|| data->map[(int)p_y][(int)p_x] == 'D')
+		p_y = data->pc.y + s * distance;
+		p_x = data->pc.x + c * distance;
+		if (data->map[(int)p_y][(int)p_x] == '1' || data->map[(int)p_y][(int)p_x] == 'D')
 			break ;
 		distance += 0.01;
 	}

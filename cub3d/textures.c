@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:38:30 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/06/07 18:27:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/05 12:43:38 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	texture_x(t_data *data, int i, float p_x, float p_y)
 	if (data->orien[i] == 0)
 		data->wall_x[i] = floor((p_x - floor(p_x)) * data->tex[0].w);
 	else if (data->orien[i] == 1)
-		data->wall_x[i] = data->tex[1].w
+		data->wall_x[i] = data->tex[1].w 
 			- floor((p_x - floor(p_x)) * data->tex[1].w);
 	else if (data->orien[i] == 2)
 		data->wall_x[i] = data->tex[2].w
@@ -68,12 +68,12 @@ void	texture_put(t_data *data, int x, int y, t_img tex)
 	float	tex_y;
 
 	tex_y = y - (GAME_HEIGHT - data->wall_height[x]) / 2;
-	dst = data->img.addr + ((y + SCR_HEIGHT / 4) * data->img.ll
-			+ (x + SCR_WIDTH / 4) * (data->img.bpp / 8));
+	dst = data->img.addr + ((y + ((SCR_HEIGHT / 4) - 100)) * data->img.ll
+			+ (x + (SCR_WIDTH / 4)) * (data->img.bpp / 8));
 	src = tex.addr + ((int)(tex_y * tex.h / data->wall_height[x]) * tex.ll
 			+ (int)data->wall_x[x] * (tex.bpp / 8));
-	color = *(int *)src;
-	*(int *)dst = color;
+	color = *(unsigned int *)src;
+	*(unsigned int *)dst = color;
 }
 
 void	ray_casting(t_data *data, int x, t_img tex)
@@ -87,13 +87,13 @@ void	ray_casting(t_data *data, int x, t_img tex)
 	while (y < GAME_HEIGHT)
 	{
 		if (y < ceiling)
-			my_mlx_pixel_put(&data->img, x + SCR_WIDTH / 4,
-				y + SCR_HEIGHT / 4, data->c);
+			my_mlx_pixel_put(&data->img, x + (SCR_WIDTH / 4),
+				y + ((SCR_HEIGHT / 4) - 100), data->c);
 		else if (y < data->wall_height[x] + ceiling)
 			texture_put(data, x, y, tex);
 		else
-			my_mlx_pixel_put(&data->img, x + SCR_WIDTH / 4,
-				y + SCR_HEIGHT / 4, data->f);
+			my_mlx_pixel_put(&data->img, x + (SCR_WIDTH / 4),
+				y + ((SCR_HEIGHT / 4) - 100), data->f);
 		y++;
 	}
 }

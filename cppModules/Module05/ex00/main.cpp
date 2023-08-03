@@ -1,0 +1,14 @@
+#include "Bureaucrat.hpp"
+
+int main() {
+
+    try {
+        Bureaucrat balbio("Ash", 100);
+        balbio.incrementGrade(10);
+        balbio.decrementGrade(1);
+
+    } catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
+    return 0;
+}
