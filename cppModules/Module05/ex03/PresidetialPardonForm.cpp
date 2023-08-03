@@ -4,6 +4,17 @@ PresidentialPardonForm::PresidentialPardonForm(std::string target)
 	: AForm ("PresidentialPradonForm", 25, 5), target (target) {
 }
 
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &src)
+    : AForm(src.name, src.signGrade, src.execGrade) {
+    *this = src;
+}
+
+PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &src) {
+    if (this != &src)
+        this->target = src.target;
+    return (*this);
+}
+
 PresidentialPardonForm::~PresidentialPardonForm() {
 
 }

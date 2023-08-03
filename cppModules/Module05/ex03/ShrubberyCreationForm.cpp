@@ -5,7 +5,7 @@ class ShrubberyCreationForm::FileError : public std::exception {
 		virtual const char* what() const throw() { return ("\033[1;31mCannot open file\033[0m\n"); }
 };
 
-const std::string ShrubberyCreationForm::asciiTree =
+std::string ShrubberyCreationForm::asciiTree =
         "			'.,				\n"
         "			'b      *		\n"
         "			'$    #.		\n"
@@ -24,6 +24,19 @@ const std::string ShrubberyCreationForm::asciiTree =
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
 	: AForm("ShrubberyCreationForm", 145, 137), target (target) {
+}
+
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &src)
+    : AForm(src.name, src.signGrade, src.execGrade) {
+    *this = src;
+}
+
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &src) {
+    if (this != &src) {
+        this->target = src.target;
+		this->asciiTree = src.asciiTree;
+    }
+    return (*this);
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {

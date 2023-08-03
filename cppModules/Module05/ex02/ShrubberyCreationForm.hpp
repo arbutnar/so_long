@@ -7,12 +7,14 @@ class ShrubberyCreationForm: public AForm {
 
 	private:
 		std::string target;
-		static const std::string asciiTree;
+		static std::string asciiTree;
 	
 	public:
 		class FileError;
 
 		ShrubberyCreationForm(std::string target);
+		ShrubberyCreationForm(const ShrubberyCreationForm &src);
+        ShrubberyCreationForm &operator=(const ShrubberyCreationForm &src);
 		~ShrubberyCreationForm();
 
 		std::string getTarget();

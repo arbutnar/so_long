@@ -11,21 +11,32 @@ class Form::GradeTooHighException : public std::exception {
 };
 
 Form::Form()
-	: name ("Unnamed"), isSigned (false), gradeToSign(0), gradeToExec(0) {
+	: name ("Unnamed"), isSigned (false), signGrade(0), execGrade(0) {
 }
 
 Form::Form (std::string n, int gts, int gte)
-	: name (n), isSigned (false), gradeToSign(gts), gradeToExec(gte) {
-	if (this->gradeToSign < 1 || this->gradeToExec < 1)
+	: name (n), isSigned (false), signGrade(gts), execGrade(gte) {
+	if (this->signGrade < 1 || this->execGrade < 1)
         throw Form::GradeTooHighException();
-    if (this->gradeToSign > 150 || this->gradeToExec > 150)
+    if (this->signGrade > 150 || this->execGrade > 150)
         throw Form::GradeTooLowException();
+}
+
+Form::Form(const Form &src)
+	: name (src.name), isSigned (src.isSigned), signGrade(src.signGrade), execGrade(src.execGrade) {
+	*this = src;
+}
+
+Form &Form::operator=(const Form &src) {
+	if (this == &src)
+		return (*this);
+	return (*this);
 }
 
 Form::~Form() {
 }
 
-std::string Form::getName() {
+std::string Form::getName() const {
 	return (this->name);
 }
 
@@ -38,17 +49,17 @@ void Form::setIsSigned(bool state) {
 }
 
 
-int Form::getGradeToSign() {
-	return (this->gradeToSign);
+int Form::getSignGrade() const {
+	return (this->signGrade);
 }
 
-int Form::getGradeToExec() {
-	return (this->gradeToExec);
+int Form::getExecGrade() const {
+	return (this->execGrade);
 }
 
 void Form::beSigned(Bureaucrat *b) {
-	std::cout << "FORM PROSPECTIVE: Requested grade to sign Form: " << this->getGradeToSign() << std::endl;
-	if (b->getGrade() <= this->getGradeToSign()) {
+	std::cout << "FORM PROSPECTIVE: Requested grade to sign Form: " << this->getSignGrade() << std::endl;
+	if (b->getGrade() <= this->getSignGrade()) {
 		this->isSigned = true;
 		std::cout << "Candidate for signing: " << *b; 
 		std::cout << "Form signed state: " << std::boolalpha << this->getIsSigned() << std::endl;
@@ -60,6 +71,6 @@ void Form::beSigned(Bureaucrat *b) {
 }
 
 std::ostream &operator<<(std::ostream &os, Form &f) {
-	os << "Form name: " << f.getName() << ".\nsigned state: " << f.getIsSigned() << ".\ngrade required to sign: " << f.getGradeToSign() << ".\ngrade required to execute: " << f.getGradeToExec() << ".\n";
+	os << "Form name: " << f.getName() << ".\nsigned state: " << f.getIsSigned() << ".\ngrade required to sign: " << f.getSignGrade() << ".\ngrade required to execute: " << f.getExecGrade() << ".\n";
 	return (os);
 }

@@ -60,7 +60,7 @@ void Bureaucrat::decrementGrade(int amount) {
 }
 
 void    Bureaucrat::signForm(Form *f) {
-    if (this->getGrade() <= f->getGradeToSign()) {
+    if (this->getGrade() <= f->getSignGrade()) {
         f->setIsSigned(true);
         std::cout << "BUREAUCRAT PROSPECTIVE: " << this->getName() << " signed " << f->getName() << std::endl;
     } else {

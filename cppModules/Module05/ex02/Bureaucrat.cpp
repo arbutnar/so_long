@@ -60,7 +60,7 @@ void Bureaucrat::decrementGrade(int amount) {
 }
 
 void    Bureaucrat::signForm(AForm &form) {
-    if (this->getGrade() <= form.getGradeToSign()) {
+    if (this->getGrade() <= form.getSignGrade()) {
         form.setIsSigned(true);
         std::cout << this->getName() << " signed " << form.getName() << std::endl;
     } else {
@@ -70,7 +70,7 @@ void    Bureaucrat::signForm(AForm &form) {
 }
 
 void    Bureaucrat::executeForm(AForm const &form) {
-    if (this->getGrade() <= form.getGradeToExec()) {
+    if (this->getGrade() <= form.getExecGrade()) {
         std::cout << this->getName() << " executed " << form.getName() << std::endl;
         form.execute(*this);
     }

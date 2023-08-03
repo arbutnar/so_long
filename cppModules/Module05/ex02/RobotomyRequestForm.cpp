@@ -7,7 +7,17 @@ class RobotomyRequestForm::RobotomyFailure : public std::exception {
 
 RobotomyRequestForm::RobotomyRequestForm(std::string target)
 	: AForm("RobotomyRequestForm", 72, 45), target (target) {
- 
+}
+
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &src)
+    : AForm(src.name, src.signGrade, src.execGrade) {
+    *this = src;
+}
+
+RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &src) {
+    if (this != &src)
+        this->target = src.target;
+    return (*this);
 }
 
 RobotomyRequestForm::~RobotomyRequestForm() {
