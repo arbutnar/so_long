@@ -1,12 +1,24 @@
 #include "WrongAnimal.hpp"
 
 WrongAnimal::WrongAnimal()
-	: type (" ") {
-		std::cout << "default WrongAnimal constructor called" << tsd::endl;
+	: type ("generic wrong animal") {
+		std::cout << "default WrongAnimal constructor called" << std::endl;
+}
+
+WrongAnimal::WrongAnimal(const WrongAnimal &src) {
+	std::cout << "WrongAnimal copy constructor called" << std::endl;
+	*this = src;
 }
 
 WrongAnimal::~WrongAnimal() {
-	std::cout << "WrongAnimal deconstructor called" << tsd::endl;
+	std::cout << "WrongAnimal deconstructor called" << std::endl;
+}
+
+WrongAnimal &WrongAnimal::operator=(const WrongAnimal &src) {
+	std::cout << "WrongAnimal copy assignment operator" << std::endl;
+	if (this != &src)
+		this->type = src.type;
+	return (*this);
 }
 
 void	WrongAnimal::makeSound() const {

@@ -2,13 +2,13 @@
 
 Cat::Cat()
 	: Animal() {
-	this->type = "Cat";
-	std::cout << "default Cat constructed" << std::endl;
+	this->type = "cat";
+	std::cout << "Cat default constructor called" << std::endl;
 }
 
 Cat::Cat(const Cat &src) {
-	*this = src;
 	std::cout << "Cat copy constructor" << std::endl;
+	*this = src;
 }
 
 Cat &Cat::operator=(const Cat &src) {

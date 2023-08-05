@@ -12,11 +12,9 @@ int main() {
     std::cout << j->getType() << " " << std::endl;
     std::cout << i->getType() << " " << std::endl;
     std::cout << i2->getType() << " " << std::endl;
-    std::cout << std::endl;
     i->makeSound();
     j->makeSound();
     meta->makeSound();
-    std::cout << std::endl;
     i2->makeSound();
     meta2->makeSound();
 
