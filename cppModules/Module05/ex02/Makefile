@@ -1,4 +1,4 @@
-NAME = form
+NAME = forms
 SRC = *.cpp
 OBJ = $(SRC:.cpp=.o)
 MYFILE = *_shrubbery
