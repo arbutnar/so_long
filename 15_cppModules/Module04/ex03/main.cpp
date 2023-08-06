@@ -15,7 +15,6 @@ int main() {
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
 	me->unequip(0);
-	// ho capito che unequip non svuota lo slot dell'inventario 
 
 	ICharacter* bob = new Character("bob");
 	me->use(0, *bob);

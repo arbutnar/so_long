@@ -10,10 +10,11 @@ struct Node {
 class Character: public ICharacter {
 
 	public:
+		AMateria *inventory[4];
+		std::string name;
 		static Node *head;
 		static Node *tail;
-		std::string name;
-		AMateria *inventory[4];
+
 		Character();
 		Character(std::string name);
 		~Character();
