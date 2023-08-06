@@ -4,8 +4,8 @@ OBJ = $(SRC:.cpp=.o)
 MYFILE = *_shrubbery
 FLG = -Wextra -Wall -Werror -std=c++98
 
-$(NAME):
-	mkdir obj
+$(NAME): $(SRC)
+	mkdir -p obj
 	c++ $(SRC) $(FLG) -c
 	c++ $(OBJ) -o $(NAME)
 	mv *.o obj
