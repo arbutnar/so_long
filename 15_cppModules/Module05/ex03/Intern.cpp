@@ -9,7 +9,7 @@ const std::string Intern::forms[3] = {
 		"ShrubberyCreationForm",
 		"RobotomyRequestForm",
 		"PresidentialPardonForm"
-	};
+};
 
 Intern::Intern() {
 	//std::cout << "Default Intern contructed" << std::endl;
@@ -32,26 +32,28 @@ Intern::~Intern() {
 }
 
 AForm *Intern::makeForm(std::string name, std::string target) {
-	int idx = 0;
+	int idx;
 
-	while(idx < 3) {
-		try {
-			if (!strcmp(this->forms[idx].c_str(), name.c_str())) {
-				std::cout << "Intern creates " << this->forms[idx] << std::endl;
-				break ;
-			}
-		} catch (s)
-		
-		idx++;
+	for(idx = 0; idx < 3; idx++) {
+		if (this->forms[idx] == name) {
+			std::cout << "Intern creates " << this->forms[idx] << std::endl;
+			break ;
+		}
 	}
-
-	switch (idx) {
-		case 0 :
+	if (idx == 3) {
+        throw Intern::CannotMakeForm();
+    }
+	
+	FormNames form = FormNames(idx);
+	switch (form) {
+		case Shrubbery :
 			return (new ShrubberyCreationForm(target));
-		case 1 :
+		case Robotomy :
 			return (new RobotomyRequestForm(target));
-		case 2 :
+		case Presidential :
 			return (new PresidentialPardonForm(target));
+		default :
+			throw Intern::CannotMakeForm();
 	}
 	return (NULL);
 }
