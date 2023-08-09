@@ -1,4 +1,4 @@
-NAME = a.out
+NAME = materias
 SRC = *.cpp
 OBJ = $(SRC:.cpp=.o)
 FLG = -Wextra -Wall -Werror -std=c++98

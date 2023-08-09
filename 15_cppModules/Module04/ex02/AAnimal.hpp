@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 16:06:57 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/08/09 16:06:59 by arbutnar         ###   ########.fr       */
+/*   Created: 2023/08/09 16:08:05 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/08/09 18:17:10 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once 
-#include "Animal.hpp"
+#pragma once
 
-class WrongAnimal {
+#include <iostream>
+#include <string>
+#include "Brain.hpp"
+
+class AAnimal {
 
 	protected:
-	    std::string type;
+		std::string type;
+		Brain *brain;
 
 	public:
-	    WrongAnimal();
-		WrongAnimal(const WrongAnimal &src);
-	    virtual ~WrongAnimal();
+		AAnimal();
+		AAnimal(const AAnimal &src);
+		virtual ~AAnimal( void );
 
-		WrongAnimal &operator=(const WrongAnimal &src);
+		AAnimal &operator=(const AAnimal &src);
 
-	    void makeSound() const;
-		std::string getType() const;
+		virtual void makeSound() const = 0;
+		std::string getType();
 };

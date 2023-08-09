@@ -1,48 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   AAnimal.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 16:07:11 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/08/09 19:40:57 by arbutnar         ###   ########.fr       */
+/*   Created: 2023/08/09 16:08:01 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/08/09 19:44:15 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 
-Animal::Animal()
-	: type ("generic animal") {
-		std::cout << "Animal default constructor called" << std::endl;
+AAnimal::AAnimal()
+	: type (" ") {
 		this->brain = new Brain();
+		std::cout << "AAnimal default constructor called" << std::endl;
 }
 
-Animal::Animal(const Animal &src)
+AAnimal::AAnimal(const AAnimal &src)
 	: type (src.type) {
+		std::cout << "AAnimal copy constructor" << std::endl;
 		this->brain = new Brain(*(src.brain));
-		std::cout << "Animal copy constructor called" << std::endl;
 }
 
-Animal::~Animal() {
-	delete (this->brain);
-	std::cout << "Animal deconstructor called" << std::endl;
-}
-
-Animal &Animal::operator=(const Animal &src) {
+AAnimal &AAnimal::operator=(const AAnimal &src) {
+	std::cout << "AAnimal copy assignment constructor" << std::endl;
 	if (this == &src)
 		return (*this);
-	this->type = src.type;
 	if (this->brain != NULL)
-	 	delete (this->brain);
+		delete (this->brain);
 	this->brain = new Brain(*(src.brain));
 	return (*this);
 }
 
-void	Animal::makeSound() const {
-	std::cout << "Animal sound" << std::endl;
+AAnimal::~AAnimal() {
+	delete (this->brain);
+	std::cout << "AAnimal decostructor called" << std::endl;
 }
 
-std::string Animal::getType() const {
-	return (this->type); 
+std::string AAnimal::getType() {
+	return (this->type);
 }

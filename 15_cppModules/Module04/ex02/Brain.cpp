@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Brain.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 16:08:09 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/08/09 16:33:42 by arbutnar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Brain.hpp"
 
 Brain::Brain() {
-	std::cout << "default Brain constructed" << std::endl;
+	std::cout << "Brain default constructor called" << std::endl;
 }
 
 Brain::Brain(const Brain &src) {

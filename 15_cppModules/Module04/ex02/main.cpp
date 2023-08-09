@@ -1,11 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 16:08:43 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/08/09 19:45:10 by arbutnar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Cat.hpp"
 #include "Dog.hpp"
 
 int main() {
 
-	//const Animal* j = new Animal();	Compiler Error due to trying to instantiate abstract obj
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+	//const AAnimal* j = new AAnimal();	//Compiler Error due to trying to instantiate abstract obj
+	const AAnimal* j = new Dog();
+	const AAnimal* i = new Cat();
+	
+	j->makeSound();
+	i->makeSound();
+	
 	delete j;
 	delete i;
 

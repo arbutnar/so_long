@@ -1,7 +1,19 @@
-#pragma once
-#include "Animal.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 16:08:22 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/08/09 18:17:51 by arbutnar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-class Cat: public Animal {
+#pragma once
+#include "AAnimal.hpp"
+
+class Cat: public AAnimal {
 
 	public:
 		Cat();
@@ -10,5 +22,5 @@ class Cat: public Animal {
 
 		Cat &operator=(const Cat &src);
 		
-		void makeSound();
+		void makeSound() const;
 };
