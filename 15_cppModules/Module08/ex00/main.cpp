@@ -14,7 +14,8 @@ void	easyfind(T container, int i) {
 int main() {
 
 	try {
-		std::array<int, 10> container = { 4, 5, 100, 200, 90, 1 };
+		int arr[] = { 4, 5, 100, 200, 90, 1 };
+		std::vector<int> container(arr, arr + 7);
 		easyfind(container, 5);
 	} catch(std::exception &e) {
 		std::cout << e.what() << std::endl;

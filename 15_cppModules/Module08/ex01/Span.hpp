@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Span.hpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/22 22:49:02 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/08/22 23:30:18 by arbutnar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #pragma once
 #include <iostream>
@@ -6,7 +18,8 @@
 class Span {
 
 	private:
-		unsigned int N;
+		unsigned int	N;
+		unsigned int	index;
 		std::vector<int> v;
 
 	public:
@@ -17,9 +30,10 @@ class Span {
 		Span(const Span &src);
 		~Span();
 
-		operator=(const Span &src);
+		Span &operator=(const Span &src);
 
 		void	addNumber(int num);
-		void	shortestSpan();
-		void	longestSpan();
+		void	printVec();
+		//int	shortestSpan();
+		int	longestSpan();
 };
