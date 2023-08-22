@@ -6,7 +6,7 @@
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:49:08 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/08/22 23:56:19 by arbutnar         ###   ########.fr       */
+/*   Updated: 2023/08/23 00:45:23 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,25 @@ void	Span::printVec() {
 		std::cout << v[i] << std::endl;
 }
 
-//int Span::shortestSpan() {
-//	
-//}
+int Span::shortestSpan() {
+	int temp = 0;
+	int sh = 0;
+
+	for (int i = 0; i < (int)N; i+++) {
+		for(int j = 0; i < (int)N; i++)
+			temp = v[i] - v[j];
+	}
+}
 
 int	Span::longestSpan() {
-	int min = 0;
-	int max = 0;
+	int min = v[0];
+	int max = v[0];
 
-	for (int i = 0; i < (int)N - 1; i++) {
-		if(v[i] > v[i + 1])
-			min = v[i + 1];
-		if(v[i] < v[i + 1])
-			max = v[i + 1];
+	for (int i = 0; i < (int)N; i++) {
+		if (max < v[i])
+			max = v[i];
+		if (min > v[i])
+			min = v[i];
 	}
-	std::cout << max << std::endl; 
-	std::cout << min << std::endl;
 	return (max - min);
 }
