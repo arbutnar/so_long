@@ -6,7 +6,7 @@
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:49:02 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/08/22 23:30:18 by arbutnar         ###   ########.fr       */
+/*   Updated: 2023/08/24 18:13:48 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <iterator>
 
 class Span {
 
 	private:
 		unsigned int	N;
-		unsigned int	index;
+		unsigned int	size;
 		std::vector<int> v;
 
 	public:
@@ -33,7 +35,8 @@ class Span {
 		Span &operator=(const Span &src);
 
 		void	addNumber(int num);
-		void	printVec();
-		//int	shortestSpan();
-		int	longestSpan();
+		void	addMore(int num);
+		int		shortestSpan();
+		int		longestSpan();
+		int		getSize();
 };

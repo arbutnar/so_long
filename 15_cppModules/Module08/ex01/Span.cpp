@@ -6,11 +6,12 @@
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:49:08 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/08/23 00:45:23 by arbutnar         ###   ########.fr       */
+/*   Updated: 2023/08/24 18:13:39 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
+#include <cstdio>
 
 class Span::Overflow : public std::exception {
 	public:
@@ -23,7 +24,7 @@ class Span::SpanNotFound : public std::exception {
 };
 
 Span::Span(unsigned int n)
-	: N (n), index (0) {
+	: N (n) {
 		std::cout << "Span one arg constructor called" << std::endl;
 }
 
@@ -37,7 +38,6 @@ Span &Span::operator=(const Span &src) {
 	if (this != &src)  {
 		this->N = src.N;
 		this->v = src.v;
-		this->index = src.index;
 	}
 	return (*this);
 }
@@ -48,36 +48,47 @@ Span::~Span() {
 }
 
 void	Span::addNumber(int num) {
-	if (index >= N)
+	if (size >= N)
 		throw Span::Overflow();
 	v.push_back(num);
-	index++;
+	size++;
 }
 
-void	Span::printVec() {
-	for (unsigned int i = 0; i < N; i++)
-		std::cout << v[i] << std::endl;
+void	Span::addMore(int num) {
+	std::vector<int> tmp;
+
+	srand(time(NULL));
+	for (int i = 0; i < num; i++)
+		tmp.push_back(rand()% 1000);
+	if ((size + num) > N)
+		throw Span::Overflow();
+	size += num;
+	v.insert(v.begin(), tmp.begin(), tmp.end());
 }
 
 int Span::shortestSpan() {
-	int temp = 0;
-	int sh = 0;
+	if (size < 2)
+		throw Span::SpanNotFound();
+	sort(v.begin(), v.end());
+	int ss = v[size - 1] - v[size - 2];
 
-	for (int i = 0; i < (int)N; i+++) {
-		for(int j = 0; i < (int)N; i++)
-			temp = v[i] - v[j];
+	for (unsigned int i = size - 2; i > 0; i--) {
+		if (ss > v[i] - v[i - 1])
+			ss = v[i] - v[i - 1];
 	}
+	return (ss);
 }
 
 int	Span::longestSpan() {
-	int min = v[0];
-	int max = v[0];
-
-	for (int i = 0; i < (int)N; i++) {
-		if (max < v[i])
-			max = v[i];
-		if (min > v[i])
-			min = v[i];
-	}
+	if (size < 2)
+		throw Span::SpanNotFound();
+	sort(v.begin(), v.end());
+	int min = *std::min_element(v.begin(), v.end());
+	int max = *std::max_element(v.begin(), v.end());
+	
 	return (max - min);
+}
+
+int		Span::getSize() {
+	return (size);
 }
