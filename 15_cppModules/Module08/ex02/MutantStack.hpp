@@ -12,16 +12,17 @@
 
 #pragma once
 #include <iostream>
+#include <stack>
+#include <algorithm>
 
 template <typename T>
 class MutantStack {
 
     private:
-        unsigned int size;
-        unsigned int *idx;
+        std::stack<T> stack;
 
     public:
-        MutantStack(T datatype) {
+        MutantStack() {
             std::cout << "MutantSatck default constructor called\n";
         }
         MutantStack<T>(const MutantStack<T> &src) {
@@ -32,18 +33,21 @@ class MutantStack {
             std::cout << "MutantSatck deconstructor called\n";
         }
 
-        MutantStack<T> &operator=(const Mutantstack<T> &src);
+        MutantStack<T> &operator=(const MutantStack<T> &src);
         bool empty() {
-
+            return (stack.empty());
         }
         int size() {
-            return (this->size);
+           return (stack.size());
         }
-        //top
+        void    top() {
+            std::cout << stack.top() << std::endl;
+        }
         void    push(T num) {
-            this
+            stack.push(num);
         }
-        //pop
-
-        //iterator
+        void    pop() {
+            stack.pop();
+        }
+        
 };

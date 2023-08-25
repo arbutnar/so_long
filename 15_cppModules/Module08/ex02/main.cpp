@@ -10,3 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MutantStack.hpp"
+
+int main() {
+	MutantStack<int> ms;
+
+	ms.push(5);
+	ms.push(15);
+	ms.push(25);
+	ms.push(35);
+
+	ms.top();
+	std::cout << ms.size() << std::endl;
+	ms.pop();
+	std::cout << ms.size() << std::endl;
+	ms.top();
+
+
+	return 0;
+}
