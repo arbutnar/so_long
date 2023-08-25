@@ -16,16 +16,13 @@
 #include <algorithm>
 
 template <typename T>
-class MutantStack {
-
-    private:
-        std::stack<T> stack;
+class MutantStack: public std::stack<T> {
 
     public:
         MutantStack() {
             std::cout << "MutantSatck default constructor called\n";
         }
-        MutantStack<T>(const MutantStack<T> &src) {
+        MutantStack(const MutantStack &src) {
             std::cout << "MutantSatck copy constructor called\n";
             *this = src;
         }
@@ -33,21 +30,5 @@ class MutantStack {
             std::cout << "MutantSatck deconstructor called\n";
         }
 
-        MutantStack<T> &operator=(const MutantStack<T> &src);
-        bool empty() {
-            return (stack.empty());
-        }
-        int size() {
-           return (stack.size());
-        }
-        void    top() {
-            std::cout << stack.top() << std::endl;
-        }
-        void    push(T num) {
-            stack.push(num);
-        }
-        void    pop() {
-            stack.pop();
-        }
-        
+        MutantStack &operator=(const MutantStack &src);        
 };

@@ -20,11 +20,11 @@ int main() {
 	ms.push(25);
 	ms.push(35);
 
-	ms.top();
+	std::cout << ms.top() << std::endl;
 	std::cout << ms.size() << std::endl;
 	ms.pop();
+	std::cout << ms.top() << std::endl;
 	std::cout << ms.size() << std::endl;
-	ms.top();
 
 
 	return 0;
