@@ -5,30 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/24 19:27:19 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/08/24 19:48:37 by arbutnar         ###   ########.fr       */
+/*   Created: 2022/10/24 15:39:30 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/08/27 17:04:21 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include <stack>
-#include <algorithm>
 
 template <typename T>
-class MutantStack: public std::stack<T> {
-
-    public:
-        MutantStack() {
-            std::cout << "MutantSatck default constructor called\n";
-        }
-        MutantStack(const MutantStack &src) {
-            std::cout << "MutantSatck copy constructor called\n";
-            *this = src;
-        }
-        ~MutantStack() {
-            std::cout << "MutantSatck deconstructor called\n";
-        }
-
-        MutantStack &operator=(const MutantStack &src);        
+class MutantStack : public std::stack<T>
+{
+	public:
+		MutantStack<T>();
+		MutantStack<T>(MutantStack const & src);
+		MutantStack&	operator=(MutantStack const & rhs);
+		~MutantStack();
+		typedef typename std::stack<T>::container_type::iterator	iterator;
+		iterator	begin();
+		iterator	end();
 };
+
+#include "MutantStack.tpp"
