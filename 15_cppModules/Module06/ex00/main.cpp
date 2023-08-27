@@ -1,25 +1,48 @@
-#include "ScalarConverter.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/27 18:15:37 by arbutnar          #+#    #+#             */
+/*   Updated: 2023/08/27 18:15:37 by arbutnar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-bool isNumber(std::string in) {
+#include <iostream>
+
+class ScalarConverter {
+
+    public:
+        void    convert(std::string str);
+};
+
+void	isValid(std::string str) {
+	if (isalpha(str[0] && str[1])) {
+		throw (std::invalid_argument("Invalid Argument\n"));
+		return ;
+	}
+	else if (isalpha(str[0] && !str[1])) {
+		std::cout << "Right char arg\n";
+		return ;
+	}
+	else if (!isalpha(str[0] && !str[1]))
+		std::cout << "Right num arg\n";
+}
+
+void	ScalarConverter::convert(std::string str) {
 	try {
-		int i =		std::stoi(in.c_str());
-		std::cout << i;
-		return true;
-	} catch (const std::invalid_argument) {
-		return false;
+		isValid(str);
+	} catch (std::exception &e) {
+		std::cout << e.what() << std::endl;
 	}
 }
 
-int main(int argc, char **argv) {
+int main() {
 
-	if (argc != 2){
-		std::cout << "Arg error" << std::endl;
-		return 1;}
-	std::string in = argv[1];
+		ScalarConverter sc;
+		sc.convert("s c c ");
 
-	if (!isNumber(in) && in.length() != 1)
-		std::cout << "Error: input is not a char nor number" << std::endl;
-
-
-	return 0;
+	return (0);
 }
