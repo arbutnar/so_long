@@ -9,7 +9,7 @@ int main() {
 
         try {
             form.beSigned(&balbio);
-            std::cout << std::endl;
+            std::cout << balbio;
             balbio.signForm(&form);
             std::cout << "\n" << form;
         } catch(std::exception &e) {

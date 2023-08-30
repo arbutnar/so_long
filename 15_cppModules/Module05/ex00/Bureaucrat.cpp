@@ -12,23 +12,23 @@ class Bureaucrat::GradeTooHighException : public std::exception {
 
 Bureaucrat::Bureaucrat(std::string name, int grade)
     : name (name), grade (grade) {
-    if (this->grade < 1)
-        throw Bureaucrat::GradeTooHighException();
-    if (this->grade > 150)
-        throw Bureaucrat::GradeTooLowException();
-    std::cout << "Bureaucrat " << this->name << " with grade " << this->grade << " constructed" << std::endl;
+        if (this->grade < 1)
+            throw Bureaucrat::GradeTooHighException();
+        if (this->grade > 150)
+            throw Bureaucrat::GradeTooLowException();
+        std::cout << "Bureaucrat " << this->name << " with grade " << this->grade << " constructed" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &src) {
-    std::cout << "A copy of " << src.name << " was constructed ";
-    *this = src;
+Bureaucrat::Bureaucrat(const Bureaucrat &src)
+    : name (src.name) {
+        std::cout << "Bureaucrat copy constructor from " << src.name << std::endl;
+        *this = src;
 }
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &src) {
-    std::cout << "through copy assignment" << std::endl;
-    if (this == &src)
-        return (*this);
-    this->grade = src.grade;
+    std::cout << "Copy assignment operator" << std::endl;
+    if (this != &src)
+        this->grade = src.grade;
     return (*this);
 }
 
@@ -50,7 +50,7 @@ void Bureaucrat::incrementGrade(int amount) {
             throw Bureaucrat::GradeTooHighException();
         this->grade -= 1;
     }
-    std::cout << "Bureaucrat upgraded at " << this->grade << std::endl;
+    std::cout << "Bureaucrat upgraded" << std::endl;
 }
 
 void Bureaucrat::decrementGrade(int amount) {
@@ -59,7 +59,7 @@ void Bureaucrat::decrementGrade(int amount) {
             throw Bureaucrat::GradeTooLowException();
         this->grade += 1;
     }
-    std::cout << "Bureaucrat downgraded at " << this->grade << std::endl;
+    std::cout << "Bureaucrat downgraded" << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &os, Bureaucrat &b) {

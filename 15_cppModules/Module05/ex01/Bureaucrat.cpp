@@ -62,7 +62,7 @@ void Bureaucrat::decrementGrade(int amount) {
 void    Bureaucrat::signForm(Form *f) {
     if (this->getGrade() <= f->getSignGrade()) {
         f->setIsSigned(true);
-        std::cout << "BUREAUCRAT PROSPECTIVE: " << this->getName() << " signed " << f->getName() << std::endl;
+        std::cout <<  this->getName() << " signed " << f->getName() << std::endl;
     } else {
         std::cout << this->getName() << " couldn’t sign " << f->getName() << " because ";
         throw Bureaucrat::GradeTooLowException();

@@ -58,16 +58,9 @@ int Form::getExecGrade() const {
 }
 
 void Form::beSigned(Bureaucrat *b) {
-	std::cout << "FORM PROSPECTIVE: Requested grade to sign Form: " << this->getSignGrade() << std::endl;
-	if (b->getGrade() <= this->getSignGrade()) {
-		this->isSigned = true;
-		std::cout << "Candidate for signing: " << *b; 
-		std::cout << "Form signed state: " << std::boolalpha << this->getIsSigned() << std::endl;
-	}
-	else {
-		std::cout << "Candidate for signing: " << *b; 
+	if (b->getGrade() > this->getSignGrade())
 		throw Form::GradeTooLowException();
-	}
+	this->isSigned = true;
 }
 
 std::ostream &operator<<(std::ostream &os, Form &f) {

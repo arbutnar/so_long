@@ -16,7 +16,6 @@ class Bureaucrat {
         ~Bureaucrat();
 
         std::string getName();
-        //void setName(std::string n);
         int getGrade();
         void incrementGrade(int amount);
         void decrementGrade(int amount);
