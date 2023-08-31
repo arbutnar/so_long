@@ -14,11 +14,8 @@
 
 Scalar::Scalar(char *str)
 	: literal (static_cast<std::string>(str)) {
-		try {
-			setStatus(literal);
-		} catch(const std::exception &e) {
-			std::cout << e.what() << std::endl;
-		}
+		setStatus(literal);
+
 }
 
 Scalar::Scalar(const Scalar &src) {
@@ -56,44 +53,62 @@ int Scalar::setStatus(std::string literal) {
 			for(; i < literal.length( ) - 1; i++)
 			{
 				if (!std::isdigit( literal.at(i) ))
-					return invalidType;
+					return (type = invalidType);
 			}
 			if (literal.at(i) == 'f')
-				return floatType;
+				return (type = floatType);
 			else if (std::isdigit( literal.at(i)))
-				return doubleType;
-			return invalidType;
+				return (type = doubleType);
+			return (type = invalidType);
 		}
 		else if(!std::isdigit( literal.at(i) ))
-			return invalidType;
+			return (type = invalidType);
 	}
-	return intType;
+	return (type = intType);
 }
 
 void	Scalar::convert(std::string literal) {
 	std::string c = "";
-	int i = 0;
+	//int i = 0;
 	float f = 0;
 	double d = 0;
 
 	if (type == invalidType)
 		throw std::invalid_argument("Invalid Argument");
+
 	if (type == charType) {
 		std::cout << "char: " << getLiteral() << std::endl;
 		std::cout << "int: " << static_cast<int>(literal[0]) << std::endl;
-		std::cout << "float: " << static_cast<float>(literal[0]) << std::endl;
-		std::cout << "double: " << static_cast<double>(literal[0]) << std::endl;		
+		std::cout << "float: " << static_cast<float>(literal[0]) << ".0f" << std::endl;
+		std::cout << "double: " << static_cast<double>(literal[0]) << ".0" << std::endl;
 		return ;
 	}
-	else if (setStatus(literal) == floatType) {
-		std::cout << "float\n";
+	long unsigned int	i = std::atoi(literal.c_str());
+	if (type == intType) {
+		//std::cout << "char: " << toChar(i) << std::endl;
+		std::cout << "char: " << static_cast<char>(i) << std::endl;
+		std::cout << "int: " << getLiteral() << std::endl;
+		std::cout << "float: " << static_cast<float>(i) << ".0f" << std::endl;
+		std::cout << "double: " << static_cast<double>(i) << ".0" << std::endl;
+		return ;
+	} else if (type == floatType) {
+		//funzione che ritorni una stringa per la conversione char
+		std::cout << "char: " << static_cast<char>(literal[0]) << std::endl;
+		std::cout << "int: " << static_cast<int>(literal[0]) << std::endl;
+		std::cout << "float: " << getLiteral() << std::endl;
+		std::cout << "double: " << static_cast<double>(literal[0]) << std::endl;
+		return ;
+	} else if (setStatus(literal) == doubleType) {
+		std::cout << "char: " << static_cast<char>(literal[0]) << std::endl;
+		std::cout << "int: " << static_cast<int>(literal[0]) << std::endl;
+		std::cout << "float: " << static_cast<float>(literal[0]) << "f" << std::endl;
+		std::cout << "double: " << getLiteral() << std::endl;
 		return ;
 	}
-	else if (setStatus(literal) == doubleType) {
-		std::cout << "double\n";
-		return ;
-	}
-	else
-		std::cout << "int\n";
-
 }
+
+// char	*Scalar::toChar(int i) {
+// 	if (!isprint(i))
+// 		return ("impossible\n");
+// 	return (static_cast<char*>(i));
+// }

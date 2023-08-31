@@ -28,6 +28,7 @@ class Scalar {
         ~Scalar();
 
         std::string getLiteral();
+		char	*toChar(int i);
         int     setStatus(std::string literal);
         void    convert(std::string literal);
 };
