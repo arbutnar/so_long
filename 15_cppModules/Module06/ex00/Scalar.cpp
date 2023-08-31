@@ -13,10 +13,10 @@
 #include "Scalar.hpp"
 
 Scalar::Scalar(char *str)
-	: literal (static_cast<std::string>(str)), status ("none") {
+	: literal (static_cast<std::string>(str)) {
 		try {
 			setStatus(literal);
-		} catch(const std::exception &src) {
+		} catch(const std::exception &e) {
 			std::cout << e.what() << std::endl;
 		}
 }
@@ -39,8 +39,35 @@ std::string Scalar::getLiteral() {
 }
 
 int Scalar::setStatus(std::string literal) {
-	if (literal.size() == 1 && std::isalpha(literal[0]))
-		this->status = ""
+	if (literal.size() == 1) {
+		if (std::isalpha(literal.at(0)))
+			return (type = charType);
+		else
+			return (type = intType);
+	}
+	long unsigned int	i = 0;
+	if (literal.at(0) == '+' || literal.at(0) == '-')
+		i += 1;
+	for(; i < literal.length( ); i++)
+	{
+		if (literal.at(i) == '.')
+		{
+			i += 1;
+			for(; i < literal.length( ) - 1; i++)
+			{
+				if (!std::isdigit( literal.at(i) ))
+					return invalidType;
+			}
+			if (literal.at(i) == 'f')
+				return floatType;
+			else if (std::isdigit( literal.at(i)))
+				return doubleType;
+			return invalidType;
+		}
+		else if(!std::isdigit( literal.at(i) ))
+			return invalidType;
+	}
+	return intType;
 }
 
 void	Scalar::convert(std::string literal) {
@@ -49,25 +76,24 @@ void	Scalar::convert(std::string literal) {
 	float f = 0;
 	double d = 0;
 
-	if (literal.size() == 1 && std::isalpha(literal[0])) {
+	if (type == invalidType)
+		throw std::invalid_argument("Invalid Argument");
+	if (type == charType) {
 		std::cout << "char: " << getLiteral() << std::endl;
 		std::cout << "int: " << static_cast<int>(literal[0]) << std::endl;
 		std::cout << "float: " << static_cast<float>(literal[0]) << std::endl;
-		std::cout << "double: " << static_cast<double>(literal[0]) << std::endl;
+		std::cout << "double: " << static_cast<double>(literal[0]) << std::endl;		
 		return ;
 	}
+	else if (setStatus(literal) == floatType) {
+		std::cout << "float\n";
+		return ;
+	}
+	else if (setStatus(literal) == doubleType) {
+		std::cout << "double\n";
+		return ;
+	}
+	else
+		std::cout << "int\n";
 
-	i = std::atoi(literal.c_str());
-	if (literal[literal.size() -1] == 'f') {
-		f = std::atof(literal.c_str());
-		d = static_cast<double>(f);
-		std::cout << "char: " << static_cast<char>(i) << std::endl;
-		std::cout << "int: " << i << std::endl;
-		std::cout << "float: " << f << std::endl;
-		std::cout << "double: " << d << std::endl;
-		return ;
-	} else {
-		std::cout << "Right double arg\n";
-		return ;
-	}
 }

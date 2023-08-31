@@ -13,13 +13,13 @@
 #include <iostream>
 #include <string>
 
-enum status
+enum Status { charType, intType, floatType, doubleType, invalidType };
 
 class Scalar {
 
     private:
         std::string literal;
-        std::string status;
+        Status type;
 
     public:
         Scalar(char *str);
@@ -28,6 +28,6 @@ class Scalar {
         ~Scalar();
 
         std::string getLiteral();
-        int     isValid(std::string literal);
+        int     setStatus(std::string literal);
         void    convert(std::string literal);
 };
