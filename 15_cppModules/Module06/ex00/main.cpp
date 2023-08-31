@@ -10,39 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include "Scalar.hpp"
 
-class ScalarConverter {
+int main(int argc, char **argv) {
 
-    public:
-        void    convert(std::string str);
-};
-
-void	isValid(std::string str) {
-	if (isalpha(str[0] && str[1])) {
-		throw (std::invalid_argument("Invalid Argument\n"));
-		return ;
+	if (argc != 2) {
+		std::cout << "Bad arguments\n";
+		return (1);
 	}
-	else if (isalpha(str[0] && !str[1])) {
-		std::cout << "Right char arg\n";
-		return ;
-	}
-	else if (!isalpha(str[0] && !str[1]))
-		std::cout << "Right num arg\n";
-}
-
-void	ScalarConverter::convert(std::string str) {
 	try {
-		isValid(str);
-	} catch (std::exception &e) {
+		Scalar sc(argv[1]);
+		sc.convert(sc.getLiteral());
+	} catch(const std::exception &e) {
 		std::cout << e.what() << std::endl;
 	}
-}
-
-int main() {
-
-		ScalarConverter sc;
-		sc.convert("s c c ");
 
 	return (0);
 }
