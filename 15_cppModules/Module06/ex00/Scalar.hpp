@@ -6,14 +6,22 @@
 /*   By: arbutnar <arbutnar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 11:57:48 by arbutnar          #+#    #+#             */
-/*   Updated: 2023/08/31 16:02:36 by arbutnar         ###   ########.fr       */
+/*   Updated: 2023/09/01 15:04:56 by arbutnar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
+#include <limits>
+#include <float.h>
+
+#ifndef NAN
+#define NAN (0.0/0.0)
+#endif
 
 enum Status { charType, intType, floatType, doubleType, invalidType };
+// enum PseudoFloat { nanf, -inff, +inff };
+// enum PseudoDouble { nan, -inf, +inf };
 
 class Scalar {
 
